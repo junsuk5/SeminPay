@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">SeminPay</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="receive_name">받는 사람 : %1$s</string>
+</resources>
