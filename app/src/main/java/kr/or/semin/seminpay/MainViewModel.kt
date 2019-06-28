@@ -14,6 +14,8 @@ class MainViewModel : ViewModel() {
     private val barcodeEncoder = BarcodeEncoder()
     private val repository = FirestoreRepository()
 
+    val myUserLiveData = MutableLiveData<User>()
+
     val user = User("오준석","a811219@gmail.com", 10000)
     val myQrJson = MutableLiveData<String>()
 
@@ -35,4 +37,11 @@ class MainViewModel : ViewModel() {
     suspend fun sendMoney(user: User, money: Int): Boolean {
         return repository.sendMoney(user, money)
     }
+
+    fun loadMyInfo() {
+        repository.getUserRealtime("a811219@gmail.com") {
+            myUserLiveData.value = it
+        }
+    }
+
 }

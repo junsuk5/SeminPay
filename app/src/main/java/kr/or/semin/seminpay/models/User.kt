@@ -6,8 +6,7 @@ import java.io.Serializable
 data class User(
     var name: String = "",
     var email: String = "",
-    var money: Int = 0,
-    var uid: String = ""
+    var money: Int = 0
 ) : Serializable
 
 fun User.toJson(): String {

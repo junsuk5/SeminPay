@@ -27,10 +27,19 @@ class ReceiveMoneyFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        // QR 이미지
         viewModel.myQrJson.observe(this, Observer {
             val bitmap = viewModel.encodeQr(it)
             Glide.with(this).load(bitmap).into(qr_image)
         })
+
+        // 내 잔액
+        viewModel.myUserLiveData.observe(this, Observer {
+            val amountText = String.format(requireContext().getString(R.string.amount), it.money)
+            amount_text.text = amountText
+        })
+
+        viewModel.loadMyInfo()
     }
 
 
