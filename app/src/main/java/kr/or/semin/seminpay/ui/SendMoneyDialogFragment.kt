@@ -8,7 +8,7 @@ import android.view.ViewGroup
 import android.widget.EditText
 import android.widget.TextView
 import androidx.fragment.app.DialogFragment
-import androidx.fragment.app.viewModels
+import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Observer
 import androidx.lifecycle.lifecycleScope
@@ -23,7 +23,7 @@ import kr.or.semin.seminpay.models.User
 
 
 class SendMoneyDialogFragment : DialogFragment() {
-    val viewModel: MainViewModel by viewModels()
+    val viewModel: MainViewModel by activityViewModels()
     val args by navArgs<SendMoneyDialogFragmentArgs>()
 
     val userLiveData = MutableLiveData<User>()
@@ -51,7 +51,7 @@ class SendMoneyDialogFragment : DialogFragment() {
         })
 
         lifecycleScope.launch {
-            val user = viewModel.getUser(args.user.email!!)
+            val user = viewModel.getUser(args.user.email)
             userLiveData.postValue(user)
         }
 
@@ -67,6 +67,7 @@ class SendMoneyDialogFragment : DialogFragment() {
                     } else {
                         toast("송금 실패")
                     }
+                    dismiss()
                 }
             }
         }

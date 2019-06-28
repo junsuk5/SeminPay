@@ -6,15 +6,17 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.viewModels
+import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Observer
+import androidx.lifecycle.lifecycleScope
 import com.bumptech.glide.Glide
 import kotlinx.android.synthetic.main.fragment_send_money.*
+import kotlinx.coroutines.launch
 import kr.or.semin.seminpay.MainViewModel
 import kr.or.semin.seminpay.R
 
 class ReceiveMoneyFragment : Fragment() {
-    val viewModel: MainViewModel by viewModels()
+    val viewModel: MainViewModel by activityViewModels()
 
 
     override fun onCreateView(
@@ -39,7 +41,9 @@ class ReceiveMoneyFragment : Fragment() {
             amount_text.text = amountText
         })
 
-        viewModel.loadMyInfo()
+        lifecycleScope.launch {
+            viewModel.loadMyInfo()
+        }
     }
 
 

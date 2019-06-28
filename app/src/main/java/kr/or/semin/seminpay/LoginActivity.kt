@@ -42,6 +42,8 @@ class LoginActivity : AppCompatActivity() {
 
             // Successfully signed in
             if (resultCode == Activity.RESULT_OK) {
+
+
                 startActivity<MainActivity>()
                 finish()
             } else {

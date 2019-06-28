@@ -16,12 +16,7 @@ class MainViewModel : ViewModel() {
 
     val myUserLiveData = MutableLiveData<User>()
 
-    val user = User("오준석","a811219@gmail.com", 10000)
     val myQrJson = MutableLiveData<String>()
-
-    init {
-        myQrJson.value = user.toJson()
-    }
 
     fun encodeQr(content: String): Bitmap {
         return barcodeEncoder.encodeBitmap(
@@ -35,12 +30,21 @@ class MainViewModel : ViewModel() {
     }
 
     suspend fun sendMoney(user: User, money: Int): Boolean {
-        return repository.sendMoney(user, money)
+        val me = myUserLiveData.value
+        return if (me != null) {
+            repository.sendMoney(me, user, money)
+        } else {
+            false
+        }
     }
 
-    fun loadMyInfo() {
-        repository.getUserRealtime("a811219@gmail.com") {
+    suspend fun loadMyInfo() {
+        // 내 정보 조회를 했는데 없으면 DB에 작성
+
+        // 실시간 모니터링
+        repository.getMyInfo {
             myUserLiveData.value = it
+            myQrJson.value = it.toJson()
         }
     }
 
