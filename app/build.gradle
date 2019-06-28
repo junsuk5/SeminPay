@@ -72,5 +72,7 @@ dependencies {
     // Task -> .await()로 쓰게 해주는 확장함수
     implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-play-services:1.3.0-M1'
 
-
+    // FirebaseUI for Firebase Auth
+    implementation 'com.firebaseui:firebase-ui-auth:5.0.0'
+    implementation 'com.google.firebase:firebase-auth:18.0.0'
 }
